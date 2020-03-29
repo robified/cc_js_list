@@ -2,7 +2,7 @@
 
 const fs = require('fs');
 
-fs.readdir(process.cwd(), (error, filenames) => {
+fs.readdir(process.cwd(), async (error, filenames) => {
     // handle either the error or carry on
     if (error) {
         // the error handling code here
@@ -11,7 +11,18 @@ fs.readdir(process.cwd(), (error, filenames) => {
         // throw new Error(error);
         // return;
     }
+
+    for (let filename of filenames) {
+        try {
+            const stats = await lstat(filename);
+
+            console.log(filename, stats.isFile());
+        } catch (err) {
+            console.log(err);
+        }
+    }
 });
+
 // version 3
 const {lstat} = fs.promises;
 
