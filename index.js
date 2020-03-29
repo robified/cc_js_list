@@ -12,5 +12,14 @@ fs.readdir(process.cwd(), (error, filenames) => {
         // return;
     }
 
-    console.log(filenames);
+    // how to solve this the incorrect way
+    for (let filename of filenames) {
+        fs.lstat(filename, (err, stats) => {
+            if (err) {
+                console.log(err);
+            }
+
+            console.log(filename, stats.isFile());
+        });
+    }
 });
