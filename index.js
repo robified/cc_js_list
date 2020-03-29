@@ -11,30 +11,25 @@ fs.readdir(process.cwd(), (error, filenames) => {
         // throw new Error(error);
         // return;
     }
-
-    // this creates an array with values of null matching the length of filenames
-    const allStats = Array(filenames.length).fill(null);
-
-    // how to solve this the incorrect way
-    for (let filename of filenames) {
-        const index = filenames.indexOf(filename);
-
-        fs.lstat(filename, (err, stats) => {
-            if (err) {
-                console.log(err);
-            }
-
-            allStats[index] = stats;
-
-            const ready = allStats.every((stats) => {
-                return stats;
-            });
-
-            if (ready) {
-                allStats.forEach((stats, index) => {
-                    console.log(filenames[index], stats.isFile());
-                })
-            }
-        });
-    }
 });
+// version 3
+const {lstat} = fs.promises;
+
+
+// version 2
+// const util = require('util');
+// const lstat = util.promisify(fs.lstat);
+
+
+// version 1
+// const lstat = (filename) => {
+//     return new Promise((resolve, reject) => {
+//         fs.lstat(filename, (err, stats) => {
+//             if (err) {
+//                 reject(err);
+//             }
+
+//             resolve(stats);
+//         });
+//     });
+// }
