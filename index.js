@@ -1,6 +1,6 @@
 const fs = require('fs');
 
-fs.readdir('.', (error, filenames) => {
+fs.readdir(process.cwd(), (error, filenames) => {
     // handle either the error or carry on
     if (error) {
         // the error handling code here
