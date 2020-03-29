@@ -19,5 +19,8 @@
   "homepage": "https://github.com/robified/cc_js_list#readme",
   "bin": {
     "nls": "index.js"
+  },
+  "dependencies": {
+    "chalk": "^3.0.0"
   }
 }
