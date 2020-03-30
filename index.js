@@ -2,8 +2,13 @@
 
 const fs = require('fs');
 const chalk = require('chalk');
+const path = require('path');
 
-fs.readdir(process.cwd(), async (error, filenames) => {
+// to see what arguments were used
+// console.log(process.argv);
+const targetDir = process.argv[2] || process.cwd();
+
+fs.readdir(targetDir, async (error, filenames) => {
     // handle either the error or carry on
     if (error) {
         // the error handling code here
@@ -14,7 +19,7 @@ fs.readdir(process.cwd(), async (error, filenames) => {
     }
 
     const statPromises = filenames.map(filename => {
-        return lstat(filename);
+        return lstat(path.join(targetDir, filename));
     });
 
     const allStats = await Promise.all(statPromises);
